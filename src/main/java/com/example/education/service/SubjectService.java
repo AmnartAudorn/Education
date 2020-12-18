@@ -1,7 +1,6 @@
 package com.example.education.service;
 
 import com.example.education.entity.Subject;
-import com.example.education.entity.Teacher;
 import javassist.NotFoundException;
 
 import java.util.List;

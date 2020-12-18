@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GetEnrolmentStuDto {
-    private int stuId;
+    private String subjId;
 }

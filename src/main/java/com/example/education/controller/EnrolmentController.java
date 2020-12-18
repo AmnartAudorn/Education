@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class EnrolmentController {
-
     @Autowired
     EnrolmentService enrolmentService;
 
@@ -24,15 +23,30 @@ public class EnrolmentController {
         return enrolmentService.findAll();
     }
 
-    @PostMapping("/searchStudentEnrolment")
-    public List<Enrolment> getStudentId(@RequestBody GetEnrolmentStuDto getEnrolmentStuDto) {
-        System.out.println(getEnrolmentStuDto.getStuId());
-        return enrolmentService.getStudentId(getEnrolmentStuDto.getStuId());
-    }
-
-
     @PostMapping("/createEnrolment")
     public Enrolment createEnrolment(@RequestBody RequestCreateEnrollmentDto request) throws NotFoundException {
         return enrolmentService.CreateEnrolment(request.getStuId(),request.getSubjId());
     }
+
+    @GetMapping("/searchEnrolmentSubject")
+    public List<Enrolment> enrolmentStudent(){
+
+        return enrolmentService.enrolmentStudent();
+    }
+
+    @PostMapping("/searchEnrolmentSubject")
+    public List<Enrolment> findAllBySubjId(@RequestBody GetEnrolmentStuDto getEnrolmentStuDto) {
+        System.out.println(getEnrolmentStuDto.getSubjId());
+        return enrolmentService.findAllById(getEnrolmentStuDto.getSubjId());
+    }
+
+
+    @GetMapping("/searchGroupByEnrolment")
+    public List<Enrolment> searchGroupByEnrolment(){
+        return enrolmentService.subjectGroupByIdStu();
+    }
+
+
+
+
 }

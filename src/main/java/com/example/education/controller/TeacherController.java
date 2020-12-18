@@ -1,8 +1,6 @@
 package com.example.education.controller;
 
-import com.example.education.entity.Student;
 import com.example.education.entity.Teacher;
-import com.example.education.service.StudentService;
 import com.example.education.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +22,6 @@ public class TeacherController {
 
     @PostMapping("/createTeacher")
     public Teacher createStudent(@RequestBody Teacher teacher){
-
         return teacherService.CreateTeacher(teacher);
     }
 

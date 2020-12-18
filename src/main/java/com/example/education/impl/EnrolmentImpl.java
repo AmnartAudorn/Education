@@ -1,6 +1,5 @@
 package com.example.education.impl;
 
-import com.example.education.dto.GetEnrolmentStuDto;
 import com.example.education.entity.Enrolment;
 import com.example.education.entity.Student;
 import com.example.education.entity.Subject;
@@ -10,7 +9,6 @@ import com.example.education.repo.SubjectRepo;
 import com.example.education.service.EnrolmentService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +26,8 @@ public class EnrolmentImpl implements EnrolmentService {
     @Autowired
     StudentRepo studentRepo;
 
+    List<Enrolment> enrolmentsStudent = new ArrayList<>();
+
 
 
     @Override
@@ -36,9 +36,18 @@ public class EnrolmentImpl implements EnrolmentService {
         return enrolments;
     }
 
+    @Override
+    public List<Enrolment> enrolmentStudent() {
+        return enrolmentsStudent;
+    }
 
     @Override
-    public Enrolment CreateEnrolment(Integer stuId,String subjId) throws NotFoundException {
+    public List<Enrolment> subjectGroupByIdStu() {
+        return enrolmentRepo.findAll();
+    }
+
+    @Override
+    public Enrolment CreateEnrolment(int stuId,String subjId) throws NotFoundException {
         Subject subj = subjectRepo.findBysubjId(subjId);
         Student stu = studentRepo.findBystuId(stuId);
 
@@ -49,19 +58,16 @@ public class EnrolmentImpl implements EnrolmentService {
     }
 
     @Override
-    public List<Enrolment> getStudentId(int stuId) {
+    public List<Enrolment> findAllById(String subjId) {
         List<Enrolment> enrolments = enrolmentRepo.findAll();
-        System.out.println(enrolments.size());
-        for (Enrolment e : enrolments){
-            if(e.getStudent().getStuId() == stuId){
-                System.out.println(e.getId());
-                System.out.println(e.getStudent().getStuId());
-                return enrolments;
-            }else{
-                return null;
+        enrolmentsStudent = new ArrayList<>();
+        int i = 0;
+        for (Enrolment enrol : enrolments){
+            if (enrol.getSubject().getSubjId().equals(subjId)){
+                enrolmentsStudent.add(enrolments.get(i));
             }
-        }
-        return enrolments;
+            i++;}
+        return enrolmentsStudent;
     }
 
 
